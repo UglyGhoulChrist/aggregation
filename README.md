@@ -1,4 +1,4 @@
-# ViteJS + jarn
+# ViteJS + yarn
 1. yarn
 2. yarn dev
 3. http://localhost:5173/

@@ -403,12 +403,37 @@ const list = [
   },
 ];
 
-const extendedList = list.map((el) => {
-  return {
-    ...el,
-    year: moment(el.date).format("YYYY"),
-    month: moment(el.date).format("MMM"),
-  };
-});
+// Сортировка по годам
+let tempYear = {};
+let yearList = [];
+for (const item of list) {
+  const key = item.date?.slice(0, 4);
+  if (typeof tempYear[key] === "undefined") {
+    tempYear[key] = item.amount;
+  } else {
+    tempYear[key] = tempYear[key] + item.amount;
+  }
+}
 
-console.log(extendedList);
+for (let [year, amount] of Object.entries(tempYear)) {
+  yearList.push({ year: +year, amount: amount });
+}
+console.log(yearList);
+
+// Сортировка по месяцам
+let tempMonth = {};
+let monthList = [];
+for (const item of list) {
+  const key = item.date?.slice(5, 7);
+  if (typeof tempMonth[key] === "undefined") {
+    tempMonth[key] = item.amount;
+  } else {
+    tempMonth[key] = tempMonth[key] + item.amount;
+  }
+}
+
+for (let [month, amount] of Object.entries(tempMonth)) {
+  monthList.push({ month: month, amount: amount });
+}
+
+console.log(monthList.sort((x, y) => y.month - x.month));
